@@ -88,3 +88,8 @@ wr.elapsedDays();
 wr.remainingDays();
 ```
 
+## 更新予定
+
+- 引数の日付（ moment ）を `moment().startOf('date')` で前処理する。
+- 週範囲が 1 日の場合は、配列の要素は重複なしにする。
+
