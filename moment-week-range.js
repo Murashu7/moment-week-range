@@ -120,7 +120,9 @@ class WeekRange {
     const result = [];
     result.push(this.start);
     const dateWeekend = this._dateWeekend(this.start);
-    result.push(dateWeekend);
+    if (!(this.start.isSame(dateWeekend))) {
+      result.push(dateWeekend);
+    }
     return result;
   }
 
@@ -128,7 +130,9 @@ class WeekRange {
     const cloneDate = this.end.clone();
     const result = [];
     const dateBeginningWeek = this._dateBeginningWeek(cloneDate);
-    result.push(dateBeginningWeek);
+    if (!(this.end.isSame(dateBeginningWeek))) {
+      result.push(dateBeginningWeek);
+    }
     result.push(this.end);
     return result;
   }
@@ -137,7 +141,9 @@ class WeekRange {
     const result = [];
     const dateBeginnigWeek = this._dateBeginningWeek(this.current); 
     const dateWeekend = this._dateWeekend(this.current);
-    result.push(dateBeginnigWeek);
+    if (!(dateBeginnigWeek.isSame(dateWeekend))) {
+      result.push(dateBeginnigWeek);
+    }
     result.push(dateWeekend);
     return result;
   }
