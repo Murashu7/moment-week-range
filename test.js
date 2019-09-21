@@ -36,14 +36,14 @@ describe('WeekRange', () => {
     // TODO:
     it('開始日、今日、終了日の日付の大きさが不正の場合はエラーを返す', () =>  {
       const startDate = moment('2019-09-01');
-      const today = '2019-09-05';
+      const today = moment('2019-08-29'); // startDate より前の日付
       const endDate = moment('2019-10-01');
       assert.throws(() => {
         new WeekRange(startDate, today, endDate);
       },
       (err) => {
         assert(err instanceof Error);
-        assert(/^Error: 2019-09-05 is not instance of moment.$/);
+        assert(/^Error: Parameter date order is incorrect.$/);
         return true;
       });
     });
@@ -63,9 +63,30 @@ describe('WeekRange', () => {
       assert.equal(results[5].format('YYYY-MM-DD'), moment('2019-09-10').format('YYYY-MM-DD'));
     });
     
-    // TODO:
-    it('指定した範囲の日付が不正の場合は例外を返す', () => {
+    it('引数が moment のインスタンスでなければエラーを返す', () =>  {
+      const startDate = moment('2019-09-01');
+      const endDate = '2019-10-01';
+      assert.throws(() => {
+        const results = WeekRange.arrayDatesRange(startDate, endDate);
+      },
+      (err) => {
+        assert(err instanceof Error);
+        assert(/^Error: 2019-10-01 is not instance of moment.$/);
+        return true;
+      });
+    });
 
+    it('終了日が開始日より前の日付の場合はエラーを返す', () => {
+      const startDate = moment('2019-09-01');
+      const endDate = moment('2019-08-29'); // startDate より前の日付
+      assert.throws(() => {
+        const results = WeekRange.arrayDatesRange(startDate, endDate);
+      },
+      (err) => {
+        assert(err instanceof Error);
+        assert(/^Error: The date order is incorrect.$/);
+        return true;
+      });
     });
   });
 

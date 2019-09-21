@@ -10,7 +10,7 @@ class WeekRange {
        }
     });
     if (!(startDate.unix() <= currentDate.unix() && startDate.unix() <= endDate.unix())) {
-      throw new Error('Parameter date order is incorrect');
+      throw new Error('Parameter date order is incorrect.');
     }
 
     this._currentDate = currentDate;
