@@ -22,14 +22,14 @@ class WeekRange {
       this._endRange = this._createEndRange(this.end);
       this._currentRange = this._createCurrentRange(this.current);
       if (this.end.isSameOrBefore(this.startRange[1])) {
-        this._startRange[1] = this.end;
-        this._endRange[0] = this.startRange[0];
+        this.startRange[1] = this.end;
+        this.endRange[0] = this.startRange[0];
       }
       if (this.current.isSameOrBefore(this.startRange[1])) {
-        this._currentRange[0] = this.startRange[0];
-        this._currentRange[1] = this.startRange[1];
+        this.currentRange[0] = this.startRange[0];
+        this.currentRange[1] = this.startRange[1];
       } else if (this.current.isSameOrAfter(this.endRange[0])) {
-        this._currentRange[1] = this.endRange[1];
+        this.currentRange[1] = this.endRange[1];
       }
       // TODO: とりあえず、範囲が 1 日の場合は開始と終了が同じ日付の配列を作成 
       // 日付の範囲がない（要素が重複している）場合は片方の要素を削除
@@ -92,10 +92,11 @@ class WeekRange {
       throw new Error('The date order is incorrect.');
     }
     const result = [];
-    for (let i = 0; startDate.isSameOrBefore(endDate); i++) {
-      const cloneDate = startDate.clone();
-      startDate.add(1, 'day');
-      result.push(cloneDate);
+    const cloneDate = startDate.clone();
+    for (let i = 0; cloneDate.isSameOrBefore(endDate); i++) {
+      const cd = cloneDate.clone();
+      result.push(cd);
+      cloneDate.add(1, 'day');
     }
     return result; 
   }
@@ -118,32 +119,28 @@ class WeekRange {
 
   _createStartRange() {
     const result = [];
-    result.push(this.start);
-    const dateWeekend = this._dateWeekend(this.start);
-    if (!(this.start.isSame(dateWeekend))) {
-      result.push(dateWeekend);
-    }
+    const cloneDate = this.start.clone();
+    result.push(cloneDate);
+    const dateWeekend = this._dateWeekend(cloneDate);
+    result.push(dateWeekend);
     return result;
   }
 
   _createEndRange() {
-    const cloneDate = this.end.clone();
     const result = [];
+    const cloneDate = this.end.clone();
     const dateBeginningWeek = this._dateBeginningWeek(cloneDate);
-    if (!(this.end.isSame(dateBeginningWeek))) {
-      result.push(dateBeginningWeek);
-    }
+    result.push(dateBeginningWeek);
     result.push(this.end);
     return result;
   }
 
   _createCurrentRange() {
     const result = [];
-    const dateBeginnigWeek = this._dateBeginningWeek(this.current); 
-    const dateWeekend = this._dateWeekend(this.current);
-    if (!(dateBeginnigWeek.isSame(dateWeekend))) {
-      result.push(dateBeginnigWeek);
-    }
+    const cloneDate = this.current;
+    const dateBeginnigWeek = this._dateBeginningWeek(cloneDate); 
+    const dateWeekend = this._dateWeekend(cloneDate);
+    result.push(dateBeginnigWeek);
     result.push(dateWeekend);
     return result;
   }

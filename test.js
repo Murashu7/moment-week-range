@@ -8,7 +8,7 @@ describe('WeekRange', () => {
   describe('range', () => {
     it('開始日、今日、終了日のそれぞれの週の範囲を返す', () =>  {
       const startDate = moment('2019-09-01');
-      const today = moment('2019-09-05');
+      const today = moment('2019-09-01');
       const endDate = moment('2019-10-01');
       const wr = new WeekRange(startDate, today, endDate);
       assert.equal(wr.startRange[0].format('YYYY-MM-DD'), moment('2019-09-01').format('YYYY-MM-DD'));
