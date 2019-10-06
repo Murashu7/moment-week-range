@@ -13,9 +13,10 @@ class WeekRange {
       throw new Error('Parameter date order is incorrect.');
     }
 
-    this._currentDate = currentDate;
-    this._startDate = startDate;
-    this._endDate = endDate;
+    // timezone を設定しから日付を初期化
+    this._currentDate = currentDate.tz('Aisa/Tokyo').startOf('date');
+    this._startDate = startDate.tz('Aisa/Tokyo').startOf('date');
+    this._endDate = endDate.tz('Aisa/Tokyo').startOf('date');
 
     this.setupRange = () => {
       this._startRange = this._createStartRange(this.start);
