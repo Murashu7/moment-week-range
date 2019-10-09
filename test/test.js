@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const moment = require('moment-timezone');
-const WeekRange = require('./moment-week-range.js');
+const WeekRange = require('../moment-week-range.js');
 
 describe('WeekRange', () => {
   describe('range', () => {
