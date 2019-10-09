@@ -1,6 +1,6 @@
 'use strict'
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 class WeekRange {
   constructor(startDate, currentDate, endDate) {
@@ -14,9 +14,9 @@ class WeekRange {
     }
 
     // timezone を設定しから日付を初期化
-    this._currentDate = currentDate.tz('Aisa/Tokyo').startOf('date');
-    this._startDate = startDate.tz('Aisa/Tokyo').startOf('date');
-    this._endDate = endDate.tz('Aisa/Tokyo').startOf('date');
+    this._currentDate = currentDate.tz('Asia/Tokyo').startOf('date');
+    this._startDate = startDate.tz('Asia/Tokyo').startOf('date');
+    this._endDate = endDate.tz('Asia/Tokyo').startOf('date');
 
     this.setupRange = () => {
       this._startRange = this._createStartRange(this.start);

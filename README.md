@@ -2,7 +2,7 @@
 
 ## moment-week-rangeとは
 
-週単位の日付範囲を取得できる JavaScript 用のライブラリです。
+指定した日付の範囲で、週単位の範囲を取得できる JavaScript 用のライブラリです。
 
 [moment.js](https://momentjs.com/)  を利用しています。
 
@@ -26,9 +26,9 @@ const WeekRange = require('./moment-week-range');
 moment で開始日、今日、終了日を引数に与えてください。
 
 ```js
-const startDate = moment('2019-09-01');
-const today = moment('2019-09-05');
-const endDate = moment('2019-09-05');
+const startDate = moment('2019-10-03');
+const today = moment('2019-10-17');
+const endDate = moment('2019-10-29');
 const wr = new WeekRange(startDate, today, endDate);
 ```
 
@@ -46,46 +46,54 @@ wr.endRange; // 終了日の週範囲
 
 ```
 // 開始日の週範囲
-[ moment("2019-09-01T00:00:00.000"),
-  moment("2019-09-05T00:00:00.000") ]
+[ moment.parseZone("2019-10-03T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-05T00:00:00.000+09:00") ]
   
 // 今日の週範囲
-[ moment("2019-09-01T00:00:00.000"),
-  moment("2019-09-05T00:00:00.000") ]
+[ moment.parseZone("2019-10-13T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-19T00:00:00.000+09:00") ]
 
 // 終了日の週範囲
-[ moment("2019-09-01T00:00:00.000"),
-  moment("2019-09-05T00:00:00.000") ]
+[ moment.parseZone("2019-10-27T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-29T00:00:00.000+09:00") ]
 ```
 
 ##### 指定した範囲の日付の配列取得
 
 ```js
-WeekRange.arrayDatesRange(moment('2019-09-01'), moment('2019-09-07'));
+WeekRange.arrayDatesRange(wr.start, wr.current);
 ```
 
 結果
 
 ```
-[ moment("2019-09-01T00:00:00.000"),
-  moment("2019-09-02T00:00:00.000"),
-  moment("2019-09-03T00:00:00.000"),
-  moment("2019-09-04T00:00:00.000"),
-  moment("2019-09-05T00:00:00.000"),
-  moment("2019-09-06T00:00:00.000"),
-  moment("2019-09-07T00:00:00.000") ]
+[ moment.parseZone("2019-10-03T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-04T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-05T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-06T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-07T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-08T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-09T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-10T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-11T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-12T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-13T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-14T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-15T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-16T00:00:00.000+09:00"),
+  moment.parseZone("2019-10-17T00:00:00.000+09:00") ]
 ```
 
 ##### 開始日から今日までの経過日数を取得
 
 ```js
-wr.elapsedDays();
+wr.elapsedDays(); // 15
 ```
 
 ##### 今日から終了日までの残り日数を取得
 
 ```js
-wr.remainingDays();
+wr.remainingDays(); // 13
 ```
 
 ## 更新予定
